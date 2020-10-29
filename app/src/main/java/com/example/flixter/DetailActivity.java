@@ -50,7 +50,7 @@ public class DetailActivity extends YouTubeBaseActivity {
         initializeVariables();
 
         Intent i = getIntent();
-        Movie movie = Parcels.unwrap(i.getParcelableExtra("movie"));
+        final Movie movie = Parcels.unwrap(i.getParcelableExtra("movie"));
         setData(movie);
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -61,7 +61,7 @@ public class DetailActivity extends YouTubeBaseActivity {
                     JSONArray results = json.jsonObject.getJSONArray("results");
                     if(results.length() == 0) return;
                     String youtubeKey = results.getJSONObject(0).getString("key");
-                    initializeYoutube(youtubeKey);
+                    initializeYoutube(youtubeKey, movie.getRating());
                 } catch (JSONException e) {
                     Log.e("DetailActivity", "Error parsing JSON");
                 }
@@ -78,11 +78,15 @@ public class DetailActivity extends YouTubeBaseActivity {
 
     }
 
-    public void initializeYoutube(final String youtubeId){
+    public void initializeYoutube(final String youtubeId, final double rating){
         youTubePlayerView.initialize(getString(R.string.youtube_key), new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.cueVideo(youtubeId);
+                if(rating >= 5)
+                    youTubePlayer.loadVideo(youtubeId);
+                else
+                    youTubePlayer.cueVideo(youtubeId);
+
             }
 
             @Override
