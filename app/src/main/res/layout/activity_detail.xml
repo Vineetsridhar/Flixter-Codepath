@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/ratingsBar"
-        android:indeterminate="false"
+        android:isIndicator="true"
         android:numStars="10" />
 
     <TextView
