@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.flixter.DetailActivity;
 import com.example.flixter.Models.Movie;
 import com.example.flixter.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.parceler.Parcels;
 
@@ -57,6 +58,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         TextView tvOverview;
         ImageView ivPoster;
         RelativeLayout rlMovies;
+        FloatingActionButton fab;
 
 
         public ViewHolder(@NonNull View itemView){
@@ -66,6 +68,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
             rlMovies = itemView.findViewById(R.id.rlMovies);
+            fab = itemView.findViewById(R.id.fab);
         }
 
         public void bind(final Movie movie) {
@@ -76,6 +79,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 imageUrl = movie.getBackdropPath();
             } else{
                 imageUrl = movie.getPosterPath();
+            }
+            if(movie.getRating() >= 5){
+                fab.setVisibility(View.VISIBLE);
             }
             Glide.with(context).load(imageUrl).into(ivPoster);
 
