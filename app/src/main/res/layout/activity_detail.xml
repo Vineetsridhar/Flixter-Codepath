@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:id="@+id/tvTitle"
+        android:transitionName="title"
         android:gravity="center"
         tools:text="It Chapter two" />
 
